@@ -23,7 +23,6 @@ public class AppPath {
     public final static String REVIEW = "/review";
     public final static String VALUE_GET_CUSTOMER = "/user/{id}";
     public final static String VALUE_GET_SELLER = "/user/{id}";
-    public final static String FIREBASE = "/firebase";
     public final static String RESET_PASSWORD = "/reset";
     public final static String GET_KOST_BY_ID = "/id";
 }
