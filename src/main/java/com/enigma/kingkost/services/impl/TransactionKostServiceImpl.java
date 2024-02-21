@@ -47,7 +47,7 @@ public class TransactionKostServiceImpl implements TransactionKostService {
         if (findKost.getAvailableRoom() == 0) {
             throw new NullPointerException("Boarding rooms are not available");
         }
-        TransactionKost checkTransactionKost = transactionKostRepository.getByKostIdAndAprStatusEquals(findKost.getId(), 0);
+        TransactionKost checkTransactionKost = transactionKostRepository.getByKostIdAndCustomerIdAndAprStatusEquals(findKost.getId(), transactionKostRequest.getCustomerId(), 0);
         if (checkTransactionKost != null) {
             throw new NullPointerException("Cannot booking kost because the previus transactions is still pending");
         }
