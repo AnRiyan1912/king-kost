@@ -6,6 +6,7 @@ import com.enigma.kingkost.dto.request.EmailRequestSeller;
 import com.enigma.kingkost.dto.request.GetAllTransactionRequest;
 import com.enigma.kingkost.dto.request.TransactionKostRequest;
 import com.enigma.kingkost.dto.response.CustomerResponse;
+import com.enigma.kingkost.dto.response.SellerResponse;
 import com.enigma.kingkost.dto.response.TransactionKostResponse;
 import com.enigma.kingkost.entities.*;
 import com.enigma.kingkost.mapper.KostMapper;
@@ -39,6 +40,7 @@ public class TransactionKostServiceImpl implements TransactionKostService {
     private final EmailService emailService;
     private final ImageKostService imageKostService;
     private final KostPriceService kostPriceService;
+    private final SellerService sellerService;
 
     @Transactional(rollbackOn = Exception.class)
     @Override
@@ -108,8 +110,9 @@ public class TransactionKostServiceImpl implements TransactionKostService {
         }
         KostPrice kostPrice = kostPriceService.getByKostId(transactionKost.getKost().getId());
         List<Image> imageResponseList = imageKostService.getByKostId(transactionKost.getKost().getId());
+        SellerResponse sellerResponse = sellerService.getById(transactionKost.getKost().getSeller().getId());
         return TransactionKostResponse.builder().id(transactionKost.getId())
-                .kost(KostMapper.kostToKostResponse(transactionKost.getKost(), kostPrice, imageResponseList, 4)).monthType(transactionKost.getMonthType())
+                .kost(KostMapper.kostToKostResponseWithSellerResponse(transactionKost.getKost(), kostPrice, imageResponseList, 4, sellerResponse)).monthType(transactionKost.getMonthType())
                 .customer(CustomerResponse.builder().id(transactionKost.getCustomer().getId())
                         .address(transactionKost.getCustomer().getAddress()).url(transactionKost.getCustomer().getUrl())
                         .profileImageType(transactionKost.getCustomer().getProfileImageType()).profileImageName(transactionKost.getCustomer().getProfileImageName())
