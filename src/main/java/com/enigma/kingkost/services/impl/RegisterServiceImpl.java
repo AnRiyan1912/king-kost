@@ -44,6 +44,10 @@ public class RegisterServiceImpl implements RegisterService {
             if (findUserCredential != null && findUserCredential.getUsername().equals(request.getUsername())) {
                 throw new NullPointerException("Username already use");
             }
+            Customer checkCustomer = customerService.getByEmail(request.getEmail());
+            if (checkCustomer.getEmail().equals(request.getEmail())) {
+                throw new NullPointerException("Email already use");
+            }
 
             RoleType role = RoleType.builder()
                     .name(ERole.ROLE_CUSTOMER)
@@ -93,6 +97,10 @@ public class RegisterServiceImpl implements RegisterService {
             UserCredential findUserCredential = userCredentialRepository.findByUsername(request.getUsername()).orElse(null);
             if (findUserCredential != null && findUserCredential.getUsername().equals(request.getUsername())) {
                 throw new NullPointerException("Username already use");
+            }
+            Customer checkCustomer = customerService.getByEmail(request.getEmail());
+            if (checkCustomer.getEmail().equals(request.getEmail())) {
+                throw new NullPointerException("Email already use");
             }
 
             RoleType role = RoleType.builder()

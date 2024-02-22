@@ -133,6 +133,11 @@ public class CustomerServiceImpl implements CustomerService {
                 .build();
     }
 
+    @Override
+    public Customer getByEmail(String email) {
+        return customerRepository.findByEmail(email).orElse(null);
+    }
+
 
     private CustomerResponse convertToResponse(Customer customer) {
         return CustomerResponse.builder()

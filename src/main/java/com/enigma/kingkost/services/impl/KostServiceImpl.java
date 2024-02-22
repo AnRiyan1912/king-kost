@@ -452,10 +452,11 @@ public class KostServiceImpl implements KostService {
         KostPrice kostPrice = kostPriceService.getByKostId(kost.getId());
         List<Image> imageList = imageKostService.getByKostId(kost.getId());
         TransactionKost transactionKost = transactionKostRepository.getByKostIdAndCustomerIdAndAprStatusEquals(kost.getId(), customerId, 0);
+        SellerResponse sellerResponse = sellerService.getById(kost.getSeller().getId());
         if (transactionKost != null) {
             return KostMapper.kostToKostResponse(kost, kostPrice, imageList, transactionKost.getAprStatus());
         }
-        return KostMapper.kostToKostResponse(kost, kostPrice, imageList, 4);
+        return KostMapper.kostToKostResponseWithSellerResponse(kost, kostPrice, imageList, 4, sellerResponse);
     }
 
     @Override

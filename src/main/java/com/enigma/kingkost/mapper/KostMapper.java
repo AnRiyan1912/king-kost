@@ -51,5 +51,39 @@ public class KostMapper {
                 .updatedAt(kost.getUpdatedAt())
                 .build();
     }
+    public static KostResponse kostToKostResponseWithSellerResponse(Kost kost, KostPrice kostPrice, List<Image> images, Integer currentBookingStatus, SellerResponse sellerResponse) {
+        return KostResponse.builder()
+                .id(kost.getId())
+                .name(kost.getName())
+                .description(kost.getDescription())
+                .kostPrice(kostPrice)
+                .availableRoom(kost.getAvailableRoom())
+                .isAc(kost.getIsAc())
+                .isWifi(kost.getIsWifi())
+                .isParking(kost.getIsParking())
+                .genderType(kost.getGenderType())
+                .seller(sellerResponse)
+                .images(ImageMapper.listImageToListImageResponse(images))
+                .province(ProvinceResponse.builder()
+                        .id(kost.getProvince().getId())
+                        .name(kost.getProvince().getName())
+                        .build())
+                .city(CityResponse.builder()
+                        .id(kost.getCity().getId())
+                        .name(kost.getCity().getName())
+                        .province(kost.getProvince())
+                        .build())
+                .subdistrict(SubdistrictResponse.builder()
+                        .id(kost.getSubdistrict().getId())
+                        .name(kost.getSubdistrict().getName())
+                        .city(kost.getCity())
+                        .build())
+                .currentBookingStatus(currentBookingStatus)
+                .isActive(kost.getIsActive())
+                .createdAt(kost.getCreatedAt())
+                .updatedAt(kost.getUpdatedAt())
+                .build();
+    }
+
 
 }
