@@ -45,7 +45,7 @@ public class RegisterServiceImpl implements RegisterService {
                 throw new NullPointerException("Username already use");
             }
             Customer checkCustomer = customerService.getByEmail(request.getEmail());
-            if (checkCustomer.getEmail().equals(request.getEmail())) {
+            if (checkCustomer != null && checkCustomer.getEmail().equals(request.getEmail())) {
                 throw new NullPointerException("Email already use");
             }
 
@@ -99,10 +99,9 @@ public class RegisterServiceImpl implements RegisterService {
                 throw new NullPointerException("Username already use");
             }
             Customer checkCustomer = customerService.getByEmail(request.getEmail());
-            if (checkCustomer.getEmail().equals(request.getEmail())) {
+            if (checkCustomer != null && checkCustomer.getEmail().equals(request.getEmail())) {
                 throw new NullPointerException("Email already use");
             }
-
             RoleType role = RoleType.builder()
                     .name(ERole.ROLE_SELLER)
                     .build();
